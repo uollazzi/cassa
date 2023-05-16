@@ -9,6 +9,14 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "it-IT",
+        "locales": {
+          "it": {
+            "translation": "src/locale/messages.it.xlf"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

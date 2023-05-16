@@ -1,0 +1,75 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <th>#</th>
+    <th>Data</th>
+    <th>Entrata/Uscita</th>
+    <th>Descrizione</th>
+    <th>Importo</th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let m of movimenti; index as contatore">
+      <td>{{contatore+1}}</td>
+      <td>{{m.data}}</td>
+      <td>
+        <span class="importo" [ngClass]="{'entrata': m.tipo == 'ENTRATA', 'uscita': m.tipo == 'USCITA'}">
+          {{m.tipo}}
+        </span>
+      </td>
+      <td>{{m.descrizione}}</td>
+      <td>
+        <span class="importo" [ngClass]="{'entrata': m.tipo == 'ENTRATA', 'uscita': m.tipo == 'USCITA'}">
+          {{m.importo |
+          currency:"EUR"}}
+        </span>
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary" (click)="modifica(m)">
+          <i class="bi bi-pencil-fill"></i>
+        </button>
+      </td>
+      <td>
+        <!-- <button type="button" class="btn btn-primary" (click)="elimina(m)">
+          <i class="bi bi-trash-fill"></i>
+        </button> -->
+        <button type="button" class="btn btn-primary" (click)="eliminaByIndice(contatore)">
+          <i class="bi bi-trash-fill"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+Estratto Conto: <strong>{{estrattoConto() | currency:"EUR"}}</strong>
+<hr>
+<form class="w-50" *ngIf="movimento" (ngSubmit)="salva()">
+  <div class="row mb-3">
+    <div class="col">
+      <label for="data" class="form-label">Data</label>
+      <input type="date" class="form-control" id="data" name="data" [(ngModel)]="movimento.data">
+    </div>
+    <div class="col">
+      <label for="tipo" class="form-label">Tipo</label>
+      <select class="form-select" id="tipo" name="tipo" [(ngModel)]="movimento.tipo">
+        <option value="ENTRATA">ENTRATA</option>
+        <option value="USCITA">USCITA</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <label for="descrizione" class="form-label">Descrizione</label>
+      <input type="text" class="form-control" id="descrizione" name="descrizione" [(ngModel)]="movimento.descrizione">
+    </div>
+    <div class="col">
+      <label for="importo" class="form-label">Importo</label>
+      <input type="number" class="form-control" id="importo" name="importo" [(ngModel)]="movimento.importo">
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">{{modalitaModifica ? 'Salva' : 'Aggiungi nuova'}}</button>
+</form>
+<!-- <pre>
+  {{movimento | json}}
+</pre> -->

@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  padding-top: 1rem;
+}
+
+.importo.entrata {
+  color: green;
+  font-weight: bold;
+}
+
+.importo.uscita {
+  color: red;
+  font-weight: bold;
+}
